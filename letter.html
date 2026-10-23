@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday! 🎂✨</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Dancing+Script:wght@500;700&family=Nunito:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap"
+    rel="stylesheet"
+  />
+  <!-- GSAP for silky smooth 3D animations -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <style>
+    /* ── Page‑entry fade‑in (pink flash arrival from 3D scene) ── */
+    body { animation: pageEntryFade 0.7s ease-out both; }
+    @keyframes pageEntryFade {
+      from { opacity: 0; filter: brightness(2.5); }
+      to   { opacity: 1; filter: brightness(1); }
+    }
+    /* ── Back to scene button ── */
+    #back-to-scene {
+      position: fixed;
+      top: 18px;
+      left: 20px;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1.5px solid rgba(255,155,178,0.45);
+      padding: 8px 18px;
+      border-radius: 24px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: #db2777;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 4px 16px rgba(244,114,182,0.2);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      -webkit-user-select: none; user-select: none;
+    }
+    #back-to-scene:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 8px 22px rgba(244,114,182,0.32);
+    }
+    #back-to-scene .btn-arrow { font-size: 1rem; }
+  </style>
+</head>
+<body>
+  <!-- ── Back to 3D Scene button ── -->
+  <a id="back-to-scene" href="index.html" title="Return to the birthday scene">
+    <span class="btn-arrow">←</span>
+    <span>Back to 3D Scene</span>
+  </a>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       1. BACKGROUND: Pastel Celebration with floating balloons & bokeh
+       ═══════════════════════════════════════════════════════════════ -->
+  <div id="background-container">
+    <video id="bg-video" autoplay muted loop playsinline poster="assets/images/bg-texture.jpg">
+      <source src="assets/videos/bg-video.mp4" type="video/mp4" />
+    </video>
+    <div id="bg-overlay"></div>
+    <div id="floating-balloons"></div>
+    <div id="floating-sparkles"></div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       2. SCENE: 3D Perspective container holding the Envelope
+       ═══════════════════════════════════════════════════════════════ -->
+  <div id="scene">
+    <!-- Header celebration badge -->
+    <div id="celebration-badge">
+      <span class="badge-sparkle">✨</span>
+      <span class="badge-text">A Special Birthday Delivery For You</span>
+      <span class="badge-sparkle">✨</span>
+    </div>
+
+    <!-- The Envelope Wrapper with true 3D structure -->
+    <div id="envelope-wrapper">
+      <!-- Soft ambient shadow beneath the envelope -->
+      <div id="envelope-shadow"></div>
+
+      <!-- Envelope Back: The back wall and decorative inner lining -->
+      <div id="envelope-back">
+        <div class="envelope-inner-lining">
+          <div class="confetti-pattern"></div>
+        </div>
+      </div>
+
+      <!-- Letter Container: Sandwiched between back and front (Draggable & Expandable) -->
+      <div id="letter-container">
+        <!-- Pull Handle / Tab visible when flap opens -->
+        <div id="letter-tab">
+          <div class="tab-handle">
+            <span class="tab-arrow">▲</span>
+            <span class="tab-text">Pull Me Up</span>
+          </div>
+        </div>
+
+        <!-- Scrollable letter content -->
+        <div id="letter-content">
+          <!-- Fixed decorative borders that stay stationary during scroll -->
+          <div class="fixed-border">
+            <div class="border-corner corner-tl"></div>
+            <div class="border-corner corner-tr"></div>
+            <div class="border-corner corner-bl"></div>
+            <div class="border-corner corner-br"></div>
+            <div class="border-line line-t"></div>
+            <div class="border-line line-r"></div>
+            <div class="border-line line-b"></div>
+            <div class="border-line line-l"></div>
+          </div>
+
+          <!-- Main Scrollable Content -->
+          <div class="scroll-content">
+            <!-- Header Section -->
+            <div class="letter-header text-block">
+              <div class="ribbon-tag">🎉 Happy Birthday! 🎉</div>
+              <h1 class="birthday-title">To the Most Special Person</h1>
+              <p class="subtitle">May your day be filled with endless smiles, laughter, and pure happiness</p>
+              <div class="pastel-divider">
+                <span>🌸</span><span>✦</span><span>🧁</span><span>✦</span><span>🌸</span>
+              </div>
+            </div>
+
+            <!-- Polaroid 1 (Portrait) -->
+            <div class="polaroid polaroid-portrait polaroid-tilt-left">
+              <div class="washi-tape tape-blue"></div>
+              <div class="polaroid-frame">
+                <img
+                  src="./assets/images/image5.JPG"
+                  alt="Special Memory 1"
+                  loading="lazy"
+                />
+              </div>
+              <p class="polaroid-caption">Where our happiest memories began ✨</p>
+            </div>
+
+            <!-- Letter Text Block 1 -->
+            <div class="letter-text text-block">
+              <p class="greeting">Shivani,</p>
+              <p>
+                I have never been so excited to wish and celebrate someone's birthday as I am now. 
+                The dates just meant to me a number to memorize and not forget it for other's sake so they don't feel bad.
+                 But yours, it comes naturally to me. A day very beautiful and precious soul came to life. 
+                 I do wonder what God must be wondering when he was thinking to make you. 
+                 Gorgeous, expression-filled, god's favourite, humble, caring, loving, kind, child-like, artistic, 
+                 inspiring, charming, someone who's tears can move people and someone's who's smile can sway people. 
+                 It must have been very hard for him to peace together so many things in one he called him unfair. 
+                 So he gave you a little unfair share of problems & tests which he knew you will always surpass. 
+              </p>
+              <p>
+                I am very grateful for him and for you that you are part of my life. Walking it together and sharing 
+                moments of joy, sadness, anger, boring and difficult times with me. 
+
+              </p>
+            </div>
+
+            <!-- Polaroid 2 (Landscape) -->
+            <div class="polaroid polaroid-landscape polaroid-tilt-right">
+              <div class="washi-tape tape-pink"></div>
+              <div class="polaroid-frame landscape">
+                <img
+                  src="./assets/images/image2.jpeg"
+                  alt="Special Memory 2"
+                  loading="lazy"
+                />
+              </div>
+              <p class="polaroid-caption">Holding you, is peace</p>
+            </div>
+
+            <!-- Letter Text Block 2 -->
+            <div class="letter-text text-block">
+              <p>
+                This birthday is a start of something new and this one will bring you the joy you never experienced before, 
+                the small and big wins, and lots of love.
+              </p>
+              <p>
+                Thank you for being your genuine, radiant self and for the endless love you pour in me. You make life so 
+                much sweeter and infinitely more colorful just by existing. 
+              </p>
+            </div>
+
+            <!-- Polaroid 3 (Portrait) -->
+            <div class="polaroid polaroid-portrait polaroid-tilt-center">
+              <div class="washi-tape tape-gold"></div>
+              <div class="polaroid-frame">
+                <img
+                  src="./assets/images/image4.jpg"
+                  alt="Special Memory 3"
+                  loading="lazy"
+                />
+              </div>
+              <p class="polaroid-caption">Never stop shining, beautiful soul 💖</p>
+            </div>
+
+            <!-- Letter Text Block 3 & Signature -->
+            <div class="letter-text text-block">
+              <p>
+                Eat all the cake you want, make a big wish when you blow out the candles,
+                and know that you are celebrated today with all the love in the universe!
+              </p>
+              <div class="signature-box">
+                <p class="sign-closing">With all my love &amp; yours,</p>
+                <p class="signature-name">Aaru 💕</p>
+              </div>
+            </div>
+
+            <!-- Video Section -->
+            <div class="video-container text-block">
+              <div class="video-header">
+                <span class="video-icon">🎬</span>
+                <h2 class="video-title">A Special Video Message For You</h2>
+              </div>
+              <div class="video-wrapper">
+                <video
+                  id="main-video"
+                  controls
+                  preload="metadata"
+                  poster="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=800&h=450&fit=crop"
+                >
+                  <source src="assets/videos/main-video.mp4" type="video/mp4" />
+                  Your browser does not support HTML5 video.
+                </video>
+              </div>
+            </div>
+
+            <!-- Scroll Bottom Hint & Trigger -->
+            <div class="scroll-hint text-block">
+              <div class="bounce-arrow">↓</div>
+              <p>Scroll to the very bottom to seal your letter with love</p>
+            </div>
+            <div id="scroll-bottom-trigger"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Envelope Front: Origami folds covering the bottom of the letter -->
+      <div id="envelope-front">
+        <div class="pocket-fold pocket-left"></div>
+        <div class="pocket-fold pocket-right"></div>
+        <div class="pocket-fold pocket-bottom">
+          <div class="pocket-border-trim"></div>
+        </div>
+      </div>
+
+      <!-- Envelope Flap: Hinges from the top to fold down over the front -->
+      <div id="envelope-flap">
+        <div class="flap-face flap-front">
+          <div class="flap-crease"></div>
+          <div class="flap-scallop-trim"></div>
+          <!-- Wax / Celebration Seal attached to the flap tip -->
+          <div id="envelope-seal">
+            <div class="seal-glow"></div>
+            <div class="seal-circle">
+              <span class="seal-icon">💝</span>
+            </div>
+            <div class="seal-drag-guide">
+              <span class="drag-arrow-icon">▲</span>
+              <span class="drag-text">Drag flap up</span>
+            </div>
+          </div>
+        </div>
+        <div class="flap-face flap-back">
+          <div class="flap-back-pattern"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Instruction Helper Pill at bottom -->
+    <div id="instruction-pill">
+      <span class="pill-dot"></span>
+      <span id="instruction-text">Drag the top flap up to open the envelope</span>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════════
+       3. FINAL OVERLAY: Sweet Celebration Modal
+       ═══════════════════════════════════════════════════════════════ -->
+  <div id="final-overlay">
+    <div id="final-card">
+      <div class="final-heart-burst">💖</div>
+      <h2 class="final-text">I love you.</h2>
+      <p class="final-subtext">Happy Birthday, my favorite person in the world! 🎂✨</p>
+      <div class="final-cake-emoji">🎈 🎂 🎁 🌸 🎉</div>
+      <button id="replay-btn">
+        <span class="btn-icon">↺</span>
+        <span>Open Envelope Again</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Canvas for festive pastel celebration confetti -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <script src="script.js"></script>
+</body>
+</html>
