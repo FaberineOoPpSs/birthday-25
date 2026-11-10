@@ -401,13 +401,18 @@
     if (phase !== "reading" || isClosing) return;
 
     const el = letterContent;
-    // Calculate if user reached the absolute bottom (with 8px rounding tolerance)
+    // Only trigger close when user has scrolled to the very absolute bottom
+    // (distanceToBottom must be nearly 0, meaning the buffer div is fully scrolled past)
     const distanceToBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
 
-    if (distanceToBottom <= 8) {
+    if (distanceToBottom <= 4) {
       isClosing = true;
       phase = "closing";
-      closeEnvelope();
+      // Small intentional delay so the user sees they've reached the end
+      // before the closing animation begins — prevents accidental fast-scroll closings
+      setTimeout(() => {
+        closeEnvelope();
+      }, 600);
     }
   }
 
